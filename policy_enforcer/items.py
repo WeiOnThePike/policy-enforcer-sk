@@ -52,21 +52,37 @@ class ItemRequirements:
     def get_missing_items(cls, activity: str, user_items: set) -> List[Item]:
         """Get missing items for a specific activity."""
         required = cls.get_requirements_for_activity(activity)
-        return [item for item in required if item.value not in user_items]
+        # Convert user_items to lowercase for case-insensitive comparison
+        user_items_lower = {item.lower() for item in user_items}
+        return [item for item in required if item.value.lower() not in user_items_lower]
     
     @classmethod
     def is_valid_item(cls, item_name: str) -> bool:
-        """Check if an item name is valid."""
-        try:
-            Item(item_name)
-            return True
-        except ValueError:
+        """Check if an item name is valid (case-insensitive)."""
+        if not item_name:
             return False
+        # Check case-insensitive match
+        item_name_lower = item_name.lower()
+        for item in Item:
+            if item.value.lower() == item_name_lower:
+                return True
+        return False
     
     @classmethod
     def get_all_items(cls) -> List[str]:
         """Get all available item names."""
         return [item.value for item in Item]
+    
+    @classmethod
+    def normalize_item_name(cls, item_name: str) -> str:
+        """Normalize item name to correct case."""
+        if not item_name:
+            return item_name
+        item_name_lower = item_name.lower()
+        for item in Item:
+            if item.value.lower() == item_name_lower:
+                return item.value
+        return item_name  # Return original if not found
 
 
 # Convenience constants for backward compatibility

@@ -42,9 +42,12 @@ class AgentState(BaseModel):
     shopping_history: list[str] = Field(default_factory=list, description="Items purchased")
     
     def add_to_inventory(self, item: str) -> None:
-        """Add an item to the user's inventory."""
-        self.inventory.add(item)
-        self.shopping_history.append(item)
+        """Add an item to the user's inventory with normalized case."""
+        from ..items import ItemRequirements
+        # Normalize the item name to correct case
+        normalized_item = ItemRequirements.normalize_item_name(item)
+        self.inventory.add(normalized_item)
+        self.shopping_history.append(normalized_item)
     
     def has_item(self, item: str) -> bool:
         """Check if user has a specific item."""

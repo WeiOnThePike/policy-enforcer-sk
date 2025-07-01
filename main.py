@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Policy Enforcer CLI - ReAct Agent Demo with Business Rule Enforcement
+Policy Enforcer CLI - Semantic Kernel ReAct Agent Demo with Business Rule Enforcement
 """
 
 import argparse
@@ -21,11 +21,11 @@ def print_banner(include_rules_mode: bool = True):
 ╔═══════════════════════════════════════════════════════════╗
 ║                    Policy Enforcer Demo                   ║
 ║              ReAct Agent {mode_text:<20} ║
-║                   Powered by Gemini 1.5 Flash            ║
+║                   Powered by OpenAI                       ║
 ╚═══════════════════════════════════════════════════════════╝
 
 This demo showcases a ReAct agent that enforces business rules
-when helping users choose activities using Google's Gemini model.
+when helping users choose activities.
 
 Available activities: Play games, Go Camping, Swimming
 Type 'help' for available commands.
@@ -62,22 +62,22 @@ def setup_environment() -> bool:
     # Load environment variables from .env file in the project root
     load_dotenv()
     
-    # Check for Google API key
-    api_key = os.getenv("GOOGLE_API_KEY")
+    # Check for OpenAI API key
+    api_key = os.getenv("OPENAI_API_KEY")
     if not api_key:
-        print("❌ Error: GOOGLE_API_KEY not found in environment variables.")
-        print("Please set your Google API key in a .env file or environment variable.")
-        print("Example: export GOOGLE_API_KEY='your-api-key-here'")
+        print("❌ Error: OPENAI_API_KEY not found in environment variables.")
+        print("Please set your OpenAI API key in a .env file or environment variable.")
+        print("Example: export OPENAI_API_KEY='your-api-key-here'")
         return False
     
-    print(f"✅ Google API key loaded successfully (length: {len(api_key)} chars)")
+    print(f"✅ OpenAI API key loaded successfully (length: {len(api_key)} chars)")
     return True
 
 
 def parse_arguments() -> argparse.Namespace:
     """Parse command line arguments."""
     parser = argparse.ArgumentParser(
-        description="Policy Enforcer CLI - ReAct Agent Demo with Business Rule Enforcement",
+        description="Policy Enforcer CLI - Semantic Kernel ReAct Agent Demo with Business Rule Enforcement",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Ablation Study Modes:
@@ -117,8 +117,8 @@ Examples:
     parser.add_argument(
         '--model',
         type=str,
-        default='gemini-1.5-flash',
-        help='Model name (default: gemini-1.5-flash)'
+        default='gpt-4o-mini',
+        help='Model name (default: gpt-4o-mini)'
     )
     
     return parser.parse_args()
