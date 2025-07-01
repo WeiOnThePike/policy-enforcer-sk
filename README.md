@@ -12,7 +12,7 @@ This project demonstrates how to build an AI agent that enforces business rules 
 
 ## 🚀 Key Features
 
-- **🤖 Dual Agent Architecture**: Both Semantic Kernel + OpenAI chat completion (gpt-4o-mini)
+- **🤖 ReAct Agent Architecture**: Semantic Kernel + OpenAI chat completion (gpt-4o-mini)
 - **📋 Business Rule Enforcement**: Automatic validation of business rules before tool execution
 - **📊 State Management**: Tracks user inventory, weather conditions, and activity choices
 - **⚖️ Policy Engine**: Flexible rule system with explainable failures
@@ -60,9 +60,6 @@ echo "OPENAI_API_KEY=your_openai_api_key_here" > .env
 
 # Run the Semantic Kernel + OpenAI agent  
 python main.py
-
-# Or run the direct OpenAI agent
-python main_openai.py
 ```
 
 ### 3. 🧪 Run Tests and Coverage
@@ -112,13 +109,10 @@ echo "OPENAI_API_KEY=your_openai_api_key_here" > .env
 
 ### Run the Agents
 ```bash
-# Semantic Kernel + OpenAI (recommended)
+# Semantic Kernel + OpenAI agent
 python main.py
 
-# Direct OpenAI implementation
-python main_openai.py
-
-# Demo without API key
+# Demo without API key (no API key required)
 python demo.py
 ```
 
@@ -381,14 +375,11 @@ TOTAL (core modules)            97%
 ```
 policy-enforcer-sk/
 ├── main.py                     # Semantic Kernel + OpenAI entry point
-├── main_openai.py             # Direct OpenAI entry point  
 ├── demo.py                    # Demo without API key
 ├── run_tests.py               # Test runner script
 ├── Makefile                   # Development commands
 ├── pytest.ini                # Test configuration
 ├── requirements.txt           # Dependencies
-├── .vscode/                   # VS Code configuration
-│   └── launch.json           # Debug configurations for all agents
 ├── tests/                     # Comprehensive test suite
 │   ├── unit/                 # Unit tests (97% coverage)
 │   ├── integration/          # Integration tests
@@ -396,11 +387,10 @@ policy-enforcer-sk/
 │   └── conftest.py          # Test configuration
 ├── policy_enforcer/           # Main package
 │   ├── agents.py             # Semantic Kernel agents
-│   ├── openai_agents.py      # Direct OpenAI agents
 │   ├── react_agent.py        # ReAct implementation
-│   ├── openai_react_agent.py # Direct OpenAI ReAct
 │   ├── items.py              # Item system
 │   ├── tools.py              # Semantic Kernel plugins
+│   ├── prompt_utils.py       # Prompt generation utilities
 │   ├── rules/                # Business rules engine
 │   │   └── __init__.py
 │   └── state/                # State management
@@ -410,18 +400,14 @@ policy-enforcer-sk/
 
 ## 🏛️ Architecture
 
-### Dual Implementation Approach
+### ReAct Agent Architecture
 
-**1. Semantic Kernel + OpenAI** (`main.py`)
+**Semantic Kernel + OpenAI** (`main.py`)
 - Uses Microsoft Semantic Kernel framework
-- OpenAI as the model provider
+- OpenAI as the model provider (gpt-4o-mini)
 - Rich plugin system with automatic tool conversion
 - Enterprise-ready with comprehensive abstractions
-
-**2. Direct OpenAI** (`main_openai.py`) 
-- Direct OpenAI API integration
-- Native tool calling support
-- Simpler implementation (200 vs 500 lines)
+- Custom ReAct implementation with real-time thinking display
 - Cost-optimized with GPT-4o-mini
 
 ### Core Components
@@ -450,7 +436,6 @@ policy-enforcer-sk/
 
 ### VS Code Launch Configurations
 - **"Policy Enforcer - Semantic Kernel with OpenAI"** - Main agent
-- **"Policy Enforcer - OpenAI (Direct)"** - Direct OpenAI agent
 - **"Run Tests with Coverage"** - Test suite with coverage
 - **"Run Unit Tests"** - Quick unit test run
 
@@ -478,7 +463,7 @@ TEMPERATURE=0.1                 # Default temperature
 4. **📊 State Tracking**: Consistent state management across components
 5. **🛡️ Graceful Failure**: Rules guide agent to alternative actions
 6. **🧪 Comprehensive Testing**: 97% coverage with multiple test types
-7. **⚡ Dual Architecture**: Choice between Semantic Kernel and direct OpenAI
+7. **⚡ Enterprise Architecture**: Microsoft Semantic Kernel with OpenAI integration
 
 ## 🔍 Advanced Features
 
